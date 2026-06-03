@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Cloth Classifier</title>
+    <meta name="description" content="Your personal dashboard for managing cloth classification tasks and viewing analytics.">
+    
+    <!-- Load static files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👕</text></svg>">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <a href="{% url 'home' %}" class="logo-section" style="text-decoration: none;">
+                    <span class="logo-icon">👕</span>
+                    <h1>Cloth Classifier</h1>
+                </a>
+                <div class="user-section">
+                    <div class="user-info">
+                        <span class="user-greeting">Welcome back,</span>
+                        <span class="user-name">{{ user.username|title }}</span>
+                    </div>
+                    <div class="user-actions">
+                        <a href="{% url 'index' %}" class="action-btn">
+                            <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                            </svg>
+                            Classifier
+                        </a>
+                        <a href="{% url 'logout' %}" class="action-btn logout-btn">
+                            <svg class="btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path>
+                            </svg>
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <div class="welcome-content">
+                    <h2 class="welcome-title">Welcome back, {{ user.username|title }}! 👋</h2>
+                    <p class="welcome-subtitle">Here's what's happening with your cloth classifications today.</p>
+                </div>
+            </section>
+
+            <!-- Stats Cards -->
+            <section class="stats-section">
+                <h2 class="section-title">Analytics Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-title">Total Classifications</h3>
+                            <p class="stat-value">{{ items|length }}</p>
+                            <p class="stat-change positive">Dynamic update</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-title">Accuracy Rate</h3>
+                            <p class="stat-value">94.2%</p>
+                            <p class="stat-change positive">+2.1% improvement</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-title">Processing Time</h3>
+                            <p class="stat-value">1.2s</p>
+                            <p class="stat-change positive">-0.3s faster</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-title">Categories</h3>
+                            <p class="stat-value">15</p>
+                            <p class="stat-change neutral">Clothing types</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="actions-section">
+                <h2 class="section-title">Quick Actions</h2>
+                <div class="actions-grid">
+                    <a href="{% url 'index' %}" class="action-card">
+                        <div class="action-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h3>Classify New Image</h3>
+                            <p>Upload and analyze clothing items</p>
+                        </div>
+                        <div class="action-arrow">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h3>View History</h3>
+                            <p>Browse past classifications</p>
+                        </div>
+                        <div class="action-arrow">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="action-card">
+                        <div class="action-icon">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 01-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 011.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 011.414-1.414L15 13.586V12a1 1 0 011-1z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="action-content">
+                            <h3>Export Data</h3>
+                            <p>Download classification results</p>
+                        </div>
+                        <div class="action-arrow">
+                            <svg fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <h2 class="section-title">Performance Charts</h2>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Classifications This Week</h3>
+                        <div class="chart-placeholder">
+                            <div class="chart-bars">
+                                <div class="bar" style="height: 60%;" data-day="Mon" data-value="45"></div>
+                                <div class="bar" style="height: 80%;" data-day="Tue" data-value="62"></div>
+                                <div class="bar" style="height: 45%;" data-day="Wed" data-value="38"></div>
+                                <div class="bar" style="height: 90%;" data-day="Thu" data-value="71"></div>
+                                <div class="bar" style="height: 75%;" data-day="Fri" data-value="58"></div>
+                                <div class="bar" style="height: 35%;" data-day="Sat" data-value="28"></div>
+                                <div class="bar" style="height: 25%;" data-day="Sun" data-value="19"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-card">
+                        <h3 class="chart-title">Category Distribution</h3>
+                        <div class="pie-chart">
+                            <div class="pie-segment casual" data-percentage="35%">Casual (35%)</div>
+                            <div class="pie-segment formal" data-percentage="28%">Formal (28%)</div>
+                            <div class="pie-segment ethnic" data-percentage="22%">Ethnic (22%)</div>
+                            <div class="pie-segment traditional" data-percentage="15%">Traditional (15%)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-section">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="activity-list">
+                    {% for item in items|slice:":5" %}
+                    <div class="activity-item">
+                        <div class="activity-icon" style="overflow: hidden; padding: 0;">
+                            {% if item.image %}
+                                <img src="{{ item.image.url }}" alt="{{ item.predicted_class }}" style="width: 100%; height: 100%; object-fit: cover;">
+                            {% else %}
+                                <svg fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                                </svg>
+                            {% endif %}
+                        </div>
+                        <div class="activity-content">
+                            <h4>Classified as {{ item.predicted_class }}</h4>
+                            <p>Uploaded: {{ item.created_at|timesince }} ago</p>
+                        </div>
+                        <div class="activity-status success" style="display: flex; align-items: center; gap: 8px;">
+                            <span>Success</span>
+                            <a href="{% url 'delete_outfit' item.pk %}" style="color: #dc2626; text-decoration: none; font-weight: bold; margin-left: 12px;">Delete</a>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="activity-item">
+                        <div class="activity-content">
+                            <p>No recent classifications found. Upload some clothes in the classifier to see them here!</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
